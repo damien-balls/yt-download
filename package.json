@@ -1,0 +1,29 @@
+{
+  "name": "dicsord",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "penis": "nodemon src/index.js",
+    "e": "nodemon src/commands.js",
+    "down": "nodemon download.js",
+    "t": "nodemon test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ffmpeg/core": "^0.11.0",
+    "@ffmpeg/ffmpeg": "^0.11.6",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "ffmpeg-static": "^5.2.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "fs": "^0.0.1-security",
+    "jquery": "^3.7.0",
+    "nodemon": "^3.0.1",
+    "youtube-dl-exec": "^2.4.6",
+    "ytdl-core": "^4.11.5"
+  }
+}
