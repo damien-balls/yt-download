@@ -1,3 +1,4 @@
+//main backend script
 const express = require('express');
 const ytdl = require('ytdl-core');
 const fs = require('fs');
@@ -6,7 +7,7 @@ const ffmpeg = require('fluent-ffmpeg');
 const ffmpegPath = require('ffmpeg-static');
 const app = express();
 const port = 553;
-//does being on 553 make secured? dont know
+//does being on 553 make secured on its own? dont know
 
 //using bodyparser
 app.use(bodypart.urlencoded({ extended: false }));
@@ -16,6 +17,7 @@ app.use(bodypart.json());
 app.use(express.static("views/"));
 
 //link is link, videoinfo is metadata, errorstate to trigger 404, title is viode title (here for easy reference), i wish mp4 and downloadFinish didnt exist
+//gerb????
 var link = "";
 var videoinfo;
 var errorstate = false;
@@ -23,7 +25,7 @@ var title;
 var downloadFinish = false;
 var gerb = false;
 
-//doesnt do anyntihgn
+//doesnt do anyntihgn i added just for my own sake
 app.get("/", (req, res) => {
   console.log("thing gettegedeifdcneij");
 });
@@ -181,3 +183,4 @@ async function check(link) {
 };
 
 app.listen(port, () => console.log('startin and fartin'));
+//this is mostly supposed to be for learning with a nice outcome so probably not great
