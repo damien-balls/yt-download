@@ -1,4 +1,3 @@
-//main backend script
 const express = require('express');
 const ytdl = require('ytdl-core');
 const fs = require('fs');
@@ -7,7 +6,7 @@ const ffmpeg = require('fluent-ffmpeg');
 const ffmpegPath = require('ffmpeg-static');
 const app = express();
 const port = 553;
-//does being on 553 make secured on its own? dont know
+//does being on 553 make secured? dont know
 
 //using bodyparser
 app.use(bodypart.urlencoded({ extended: false }));
@@ -17,15 +16,14 @@ app.use(bodypart.json());
 app.use(express.static("views/"));
 
 //link is link, videoinfo is metadata, errorstate to trigger 404, title is viode title (here for easy reference), i wish mp4 and downloadFinish didnt exist
-//gerb????
 var link = "";
 var videoinfo;
 var errorstate = false;
 var title;
-var downloadFinish = false;
+// var downloadFinish = false;
 var gerb = false;
 
-//doesnt do anyntihgn i added just for my own sake
+//doesnt do anyntihgn
 app.get("/", (req, res) => {
   console.log("thing gettegedeifdcneij");
 });
@@ -79,52 +77,52 @@ app.post("/download-audio", async (req, res) => {
   console.log(link);
 
   //fetches name of mp4
-  var mp4 = `./${title}.mp4`;
+  var name = `./willthisoverwrite`;
 
   //delete vddeo on serever yes pleasle yeokospsl,ll
   function gayBalls(videoTitle) {
     console.log("starting delete");
     if (gerb == true) {
       console.log("starting delete 2");
-      fs.unlink(videoTitle + '.mp4', (err) => {
+      fs.unlink(name + ".mp4", (err) => {
         if (err) throw err;
-        console.log(videoTitle + '.mp4 was deleted');
+        console.log(name + "was deleted");
       });
-      fs.unlink(videoTitle + '.mp3', (err) => {
+      fs.unlink(name + ".mp3", (err) => {
         if (err) throw err;
-        console.log(videoTitle + '.mp3 was deleted');
+        console.log(name + ".mp3 was deleted");
       });
     };
   };
-  
+
   //crteates file of same name to transcode mp3 into, currently empty
-  fs.open(title + ".mp3", "w", (err, file) => {
+  fs.open(name + ".mp3", "w", (err, file) => {
     if (err) {
       console.log(err);
     }
     else {
-      console.log(title + '.mp3 created');
+      console.log("willthisoverwrite.mp3 created");
     };
-    console.log("ready to milk from " + mp4);
+    console.log("ready to milk from " + name + ".mp4");
   });
 
   //initoal download as mp4
-  ytdl(link.input, { filter: 'audioandvideo', format: 96 }).pipe(fs.createWriteStream(title + ".mp4")).on("finish", () => {
+  ytdl(link.input, { filter: 'audioandvideo', format: 96 }).pipe(fs.createWriteStream("willthisoverwrite.mp4")).on("finish", () => {
 
     // if (downloadFinish == true) {
-    var liberate = new ffmpeg({ source: mp4 });
+    var liberate = new ffmpeg({ source: name + ".mp4" });
     console.log("liberate")
-    liberate.setFfmpegPath(ffmpegPath).toFormat('mp3').saveToFile(`./${title}.mp3`).on("end", () => {
+    liberate.setFfmpegPath(ffmpegPath).toFormat('mp3').saveToFile("./" + name + ".mp3").on("end", () => {
       //sends video to client
       console.log('down has finishred'),
-        fs.exists(title + ".mp3", (e) => {
-          console.log(`${title}.mp3 eixstists`);
+        fs.exists(name + ".mp3", (e) => {
+          console.log(name + ".mp3 eixstists");
           gerb = false;
           console.log(gerb + " gerb state");
-          res.download(`./${title}.mp3`, title + ".mp3");
-              gerb = true;
-              console.log(gerb + " gerb state 2");
-              console.log("gabyalls"); gayBalls(title);
+          res.download(name + ".mp3", name + ".mp3");
+          gerb = true;
+          console.log(gerb + " gerb state 2");
+          console.log("gabyalls"); gayBalls(title);
         });
     })
     //finish and delte please
@@ -183,4 +181,3 @@ async function check(link) {
 };
 
 app.listen(port, () => console.log('startin and fartin'));
-//this is mostly supposed to be for learning with a nice outcome so probably not great
